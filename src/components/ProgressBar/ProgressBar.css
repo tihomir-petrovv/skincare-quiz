@@ -1,0 +1,15 @@
+circle {
+    stroke-width: 5px;
+    fill: transparent;
+}
+
+#inner-circle {
+    stroke: rgba(238, 247, 251, 1);
+}
+
+#outer-circle {
+    stroke: rgba(170, 221, 243, 1);
+    transform: rotate(-90deg);
+    transform-origin: center;
+    stroke-linecap: round;
+}
