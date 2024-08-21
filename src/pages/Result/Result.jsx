@@ -6,6 +6,11 @@ import { useNavigate } from "react-router";
 import Slider from "../../components/Slider/Slider";
 import "./Result.css";
 
+/**
+ * Renders the Result component.
+ *
+ * @returns {JSX.Element} The Result component.
+ */
 export default function Result() {
   const { selectedAnswers } = useContext(AppContext);
   const [products, setProducts] = useState([]);

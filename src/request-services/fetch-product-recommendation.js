@@ -1,3 +1,9 @@
+/**
+ * Fetches product recommendations based on user input.
+ * @param {Array<string>} userInput - The user input to filter the products.
+ * @returns {Promise<Array<object>>} - A promise that resolves to an array of filtered products.
+ * @throws {Error} - If there is an error fetching the data.
+ */
 export default async function fetchProductRecommendation(userInput) {
   try {
     const result = await fetch(

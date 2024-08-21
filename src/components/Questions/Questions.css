@@ -104,6 +104,21 @@
     text-align: center;
 }
 
+.error-message {
+    color: #1C2635;
+    position: absolute;
+    width: 100%;
+    max-width: 200px;
+    top: 20px;
+    left: 50vw;
+    transform: translateX(-50%);
+    border: 1px solid #5BC1ED;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    padding: 15px;
+    text-align: center;
+}
+
 @media (max-width: 768px) {
     #title-progress-container {
         display: flex;

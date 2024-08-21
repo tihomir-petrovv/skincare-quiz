@@ -4,6 +4,11 @@ import "./HomePage.css";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 
+/**
+ * Renders the Home Page component.
+ *
+ * @returns {JSX.Element} The rendered Home Page component.
+ */
 export default function HomePage() {
   const { setContext } = useContext(AppContext);
 

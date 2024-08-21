@@ -1,6 +1,15 @@
 import PropTypes from "prop-types";
 import "./ProgressBar.css";
 
+/**
+ * Renders a progress bar component.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {number} props.questionNumber - The current question number.
+ * @param {number} props.allQuestions - The total number of questions.
+ * @returns {JSX.Element} The rendered progress bar.
+ */
 export default function ProgressBar({ questionNumber, allQuestions }) {
   const radius = 40;
   const progress = (questionNumber / allQuestions) * 100;

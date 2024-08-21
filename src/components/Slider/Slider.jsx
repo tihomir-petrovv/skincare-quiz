@@ -4,6 +4,12 @@ import "./Slider.css";
 import heart from "../../images/favorite.svg";
 import fullHeart from "../../images/heart.svg";
 
+/**
+ * Slider component for displaying and navigating through a list of products.
+ *
+ * @param {Object[]} products - The array of products to be displayed in the slider.
+ * @returns {JSX.Element} The Slider component.
+ */
 export default function Slider({ products }) {
   const [favorites, setFavorites] = useState([]);
   const [displayedProducts, setDisplayedProducts] = useState([]);
@@ -53,8 +59,6 @@ export default function Slider({ products }) {
 
     setFavorites(updatedFavorites);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-
-    
   };
 
   return (
@@ -67,37 +71,42 @@ export default function Slider({ products }) {
           >
             &lt;
           </button>
-          <div className="product-card title">
-            <div id="title-desc-container">
-              <h5>Daily routine</h5>
-              <p>
-                Perfect for if you&apos;re looking for soft, nourished skin, our
-                moisturizing body washes are made with skin-natural nutrients
-                that work with your skin to replenish moisture. With a light
-                formula, the bubbly lather leaves your skin feeling cleansed and
-                cared for. And by choosing relaxing fragrances you can add a
-                moment of calm to the end of your day.
-              </p>
+          <div className="main-product-card">
+            <div className="product-card title-desc">
+              <div id="title-desc-inner-container">
+                <h5>Daily routine</h5>
+                <p>
+                  Perfect for if you&apos;re looking for soft, nourished skin,
+                  our moisturizing body washes are made with skin-natural
+                  nutrients that work with your skin to replenish moisture. With
+                  a light formula, the bubbly lather leaves your skin feeling
+                  cleansed and cared for. And by choosing relaxing fragrances
+                  you can add a moment of calm to the end of your day.
+                </p>
+              </div>
             </div>
+            {visibleProducts.map((product) => (
+              <div key={product.id} className="product-card">
+                <img
+                  src={product.images[0].src}
+                  alt={product.title}
+                  className="item-image"
+                />
+                <h5>{product.title}</h5>
+                <p>${product.variants[0].price}</p>
+                <img
+                  src={
+                    favorites.some((fav) => fav.id === product.id)
+                      ? fullHeart
+                      : heart
+                  }
+                  alt="favorite-heart-image"
+                  className="favorite-icon"
+                  onClick={() => toggleFavorite(product)}
+                />
+              </div>
+            ))}
           </div>
-
-          {visibleProducts.map((product) => (
-            <div key={product.id} className="product-card">
-              <img
-                src={product.images[0].src}
-                alt={product.title}
-                className="item-image"
-              />
-              <h5>{product.title}</h5>
-              <p>${product.variants[0].price}</p>
-              <img
-                src={favorites.some((fav) => fav.id === product.id) ? fullHeart : heart}
-                alt="favorite-heart-image"
-                className="favorite-icon"
-                onClick={() => toggleFavorite(product)}
-              />
-            </div>
-          ))}
 
           <button
             onClick={handleNextPage}

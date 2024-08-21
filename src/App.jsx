@@ -6,6 +6,11 @@ import HomePage from "./pages/HomePage/HomePage";
 import Quiz from "./pages/Quiz/Quiz";
 import Result from "./pages/Result/Result";
 
+/**
+ * Renders the main application component.
+ *
+ * @returns {JSX.Element} The rendered application component.
+ */
 function App() {
   const localStorageItems = JSON.parse(localStorage.getItem("answers"));
   const [ context, setContext ] = useState( localStorageItems || {

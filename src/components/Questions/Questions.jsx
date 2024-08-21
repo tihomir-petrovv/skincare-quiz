@@ -7,24 +7,39 @@ import { NavLink } from "react-router-dom";
 import arrow from "../../images/arrow.svg";
 import { AppContext } from "../../context/AppContext";
 
+/**
+ * Renders a question component.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Object} props.question - The question object.
+ * @param {number} props.questionId - The ID of the question.
+ * @param {number} props.allQuestions - The total number of questions.
+ * @returns {JSX.Element} The rendered question component.
+ */
 export default function Questions({ question, questionId, allQuestions }) {
   const { selectedAnswers, setContext } = useContext(AppContext);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    if (selectedAnswers && selectedAnswers[questionId - 1] !== undefined && selectedAnswers[questionId - 1] !== null) {
-        setSelectedAnswer(selectedAnswers[questionId - 1]);
+    if (
+      selectedAnswers &&
+      selectedAnswers[questionId - 1] !== undefined &&
+      selectedAnswers[questionId - 1] !== null
+    ) {
+      setSelectedAnswer(selectedAnswers[questionId - 1]);
     }
-}, [selectedAnswers, questionId]);
+  }, [selectedAnswers, questionId]);
 
   useEffect(() => {
     const newAnswers = selectedAnswers ? [...selectedAnswers] : [];
     newAnswers[questionId - 1] = selectedAnswer;
 
     setContext((prev) => ({
-        ...prev,
-        selectedAnswers: newAnswers.filter((answer) => answer !== null),
+      ...prev,
+      selectedAnswers: newAnswers.filter((answer) => answer !== null),
     }));
   }, [selectedAnswer]);
 
@@ -33,20 +48,26 @@ export default function Questions({ question, questionId, allQuestions }) {
   };
 
   const goToNextPage = () => {
-    // Add message to user that he needs to select an answer
-    if (!selectedAnswer) {
-        return;
+    if (!selectedAnswer || !question.answers.includes(selectedAnswer)) {
+      setErrorMessage("Please select an answer before moving on.");
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
+      return;
     }
     if (questionId === allQuestions) {
-        navigate("/results");
-      } else {
-        navigate(`/quiz/${questionId + 1}`);
-      }
+      navigate("/results");
+      setErrorMessage(null);
+    } else {
+      navigate(`/quiz/${questionId + 1}`);
+      setErrorMessage(null);
+    }
   };
 
   return (
     <div id="main-questions-container">
       <div id="main-title-progress-container">
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
         <div id="title-progress-container">
           <h6>{question.title}</h6>
           <ProgressBar
