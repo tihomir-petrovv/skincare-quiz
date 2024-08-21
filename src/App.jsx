@@ -5,6 +5,7 @@ import { AppContext } from "./context/AppContext";
 import HomePage from "./pages/HomePage/HomePage";
 import Quiz from "./pages/Quiz/Quiz";
 import Result from "./pages/Result/Result";
+import NotFound from "./components/NotFound/NotFound";
 
 /**
  * Renders the main application component.
@@ -30,6 +31,7 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/quiz/:questionId" element={<Quiz />} />
             <Route path="/results" element={<Result />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </AppContext.Provider>
