@@ -1,25 +1,47 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import "./Questions.css";
 import { useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import arrow from "../../images/arrow.svg";
+import { AppContext } from "../../context/AppContext";
 
 export default function Questions({ question, questionId, allQuestions }) {
+  const { selectedAnswers, setContext } = useContext(AppContext);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (selectedAnswers && selectedAnswers[questionId - 1] !== undefined && selectedAnswers[questionId - 1] !== null) {
+        setSelectedAnswer(selectedAnswers[questionId - 1]);
+    }
+}, [selectedAnswers, questionId]);
+
+  useEffect(() => {
+    const newAnswers = selectedAnswers ? [...selectedAnswers] : [];
+    newAnswers[questionId - 1] = selectedAnswer;
+
+    setContext((prev) => ({
+        ...prev,
+        selectedAnswers: newAnswers.filter((answer) => answer !== null),
+    }));
+  }, [selectedAnswer]);
 
   const selectAnswer = (answer) => {
     setSelectedAnswer(answer);
   };
 
   const goToNextPage = () => {
-    if (questionId === allQuestions) {
-      navigate("/results");
-    } else {
-      navigate(`/quiz/${questionId + 1}`);
+    // Add message to user that he needs to select an answer
+    if (!selectedAnswer) {
+        return;
     }
+    if (questionId === allQuestions) {
+        navigate("/results");
+      } else {
+        navigate(`/quiz/${questionId + 1}`);
+      }
   };
 
   return (

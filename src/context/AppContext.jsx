@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
 export const AppContext = createContext({
-    answers: null,    
+    answers: null,
     setContext: () => {},
 });

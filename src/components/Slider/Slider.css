@@ -25,9 +25,10 @@
   height: 420px;
   color: #1C2635;
   margin-top: -4vh;
+  position: relative;
 }
 
-.product-card img {
+.item-image {
   width: 100%;
   max-width: 350px;
   height: 345px;
@@ -50,6 +51,16 @@
     font-weight: 500;
     line-height: 19.8px;
     text-align: center;
+  }
+
+  .favorite-icon {
+    position: absolute;
+    width: 20px;
+    height: 18.35px;
+    color: #1d69dc;
+    top: 10px;
+    right: 10px;
+    z-index: 1111;
   }
 
 .title {

@@ -5,13 +5,13 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "../../context/AppContext";
 
 export default function HomePage() {
-  const { setSelAnswer } = useContext(AppContext);
+  const { setContext } = useContext(AppContext);
 
   useEffect(() => {
-    setSelAnswer({
+    setContext({
       answers: null,
     });
-  }, [setSelAnswer]);
+  }, [setContext]);
 
   return (
     <div id="home-page">
